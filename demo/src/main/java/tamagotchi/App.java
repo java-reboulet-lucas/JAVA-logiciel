@@ -3,8 +3,8 @@ package tamagotchi;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,12 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
-
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     Stage Window;
@@ -25,9 +20,11 @@ public class App extends Application {
     private ListView<String> taskListView;
     private TextField taskInputField;
     private ObservableList<String> tasks;
-    public int compteur = 0;
+    public int compteur = 100;
     private Label labelCompteur;
     private Label article, article1, article2, article3, article4;
+    private Label inventaire, inventaire1, inventaire2, inventaire3, inventaire4;
+    private int inventaireCompteur, inventaireCompteur1, inventaireCompteur2, inventaireCompteur3, inventaireCompteur4;
 
     public static void main(String[] args) {
         launch(args);
@@ -66,7 +63,7 @@ public class App extends Application {
         });
 
         //valider taches
-        labelCompteur = new Label("0");
+        labelCompteur = new Label("100");
         Button validButton = new Button("valider une tache");
         validButton.setOnAction(e -> {
             String selectedTask = taskListView.getSelectionModel().getSelectedItem();
@@ -77,13 +74,23 @@ public class App extends Application {
             }
         });
 
-        //differents articlee et button pour le shop
+        //initialisation iventaire vide
+        inventaire = new Label("inventaire de gateau vide");
+        inventaire1 = new Label("inventaire de sac vide");
+        inventaire2 = new Label("inventaire de veste vide");
+        inventaire3 = new Label("inventaire de chapeau vide");
+        inventaire4 = new Label("inventaire de bijoux vide");
+
+
+        //boutton pour achat shop et ajout dans l'inventaire
         article = new Label("gateau");
         Button achatButton = new Button("acheter pour 3€");
         achatButton.setOnAction(e -> {
             if (compteur >= 3) {
                 compteur -= 3;
                 labelCompteur.setText(String.valueOf(compteur));
+                inventaireCompteur ++;
+                inventaire.setText("gateau: " + inventaireCompteur);
             }
         });
 
@@ -93,6 +100,8 @@ public class App extends Application {
             if (compteur >= 10) {
                 compteur -= 10;
                 labelCompteur.setText(String.valueOf(compteur));
+                inventaireCompteur1 ++; 
+                inventaire1.setText("sac: " + inventaireCompteur1);
             }
         });
 
@@ -102,6 +111,8 @@ public class App extends Application {
             if (compteur >= 15) {
                 compteur -= 15;
                 labelCompteur.setText(String.valueOf(compteur));
+                inventaireCompteur2 ++;
+                inventaire2.setText("veste: " + inventaireCompteur2);
             }
         });
 
@@ -111,6 +122,8 @@ public class App extends Application {
             if (compteur >= 14) {
                 compteur -= 14;
                 labelCompteur.setText(String.valueOf(compteur));
+                inventaireCompteur3 ++;
+                inventaire3.setText("chapeau: " + inventaireCompteur3);
             }
         });
 
@@ -120,9 +133,10 @@ public class App extends Application {
             if (compteur >= 60) {
                 compteur -=   60;
                 labelCompteur.setText(String.valueOf(compteur));
+                inventaireCompteur4 ++;
+                inventaire4.setText("bijoux: " + inventaireCompteur4);
             }
         });
-
 
 
         //Button scene 1 vers scene 2
@@ -148,14 +162,12 @@ public class App extends Application {
         //Button scene 4 vers scene 1
         Button button6 = new Button("retour");
         button6.setOnAction(e -> Window.setScene(scene1));
-        
-
-
 
         //config scene 1 base
         VBox layout1 = new VBox(20);
         layout1.getChildren().addAll(button1, button3, button5);
         scene1 = new Scene(layout1, 500, 500);
+        layout1.setAlignment(Pos.CENTER);
 
         //config scene 2 taches
         VBox layout2 = new VBox(20);
@@ -166,10 +178,11 @@ public class App extends Application {
         VBox layout3 = new VBox(10);
         layout3.getChildren().addAll(article, achatButton, article1, achatButton1, article2, achatButton2, article3, achatButton3, article4, achatButton4, labelCompteur, button4);
         scene3 = new Scene(layout3, 500, 500);
+        layout3.setAlignment(Pos.CENTER);
 
         //congig scene 4 inventaire
         VBox layout4 = new VBox(20);
-        layout4.getChildren().addAll(button6);
+        layout4.getChildren().addAll(button6, inventaire, inventaire1, inventaire2, inventaire3, inventaire4);
         scene4 = new Scene(layout4, 500, 500);
 
         Window.setScene(scene1);
