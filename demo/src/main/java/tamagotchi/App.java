@@ -20,7 +20,7 @@ public class App extends Application {
     private ListView<String> taskListView;
     private TextField taskInputField;
     private ObservableList<String> tasks;
-    public int compteur = 100;
+    public int compteur = 0;
     private Label labelCompteur;
     private Label article, article1, article2, article3, article4;
     private Label inventaire, inventaire1, inventaire2, inventaire3, inventaire4;
@@ -63,7 +63,7 @@ public class App extends Application {
         });
 
         //valider taches
-        labelCompteur = new Label("100");
+        labelCompteur = new Label("0");
         Button validButton = new Button("valider une tache");
         validButton.setOnAction(e -> {
             String selectedTask = taskListView.getSelectionModel().getSelectedItem();
